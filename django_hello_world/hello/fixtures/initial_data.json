@@ -16,5 +16,19 @@
             "email": "admin@example.com", 
             "date_joined": "2011-08-19 09:53:08"
         }
+    }, 
+    {
+        "pk": 1, 
+        "model": "hello.userinfo", 
+        "fields": {
+            "bio": "was born\r\ngrown\r\nstudied\r\nliving in peace", 
+            "last_name": "Papin", 
+            "name": "Sergey", 
+            "other_contacts": "icq 766086", 
+            "date_of_birth": "1977-04-10", 
+            "skype": "sergey.papa", 
+            "jabber": "papins@gmail.com", 
+            "email": "papins@gmail.com"
+        }
     }
 ]
