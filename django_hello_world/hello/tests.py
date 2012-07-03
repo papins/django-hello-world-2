@@ -40,3 +40,13 @@ class HttpTest(TestCase):
         request_list = response.context['request_list']
         self.assertLessEqual(request_list.count(), 10)
 
+    def test_context_processor(self):
+        c = Client()
+
+        response = c.get('/')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertTrue('SETTINGS' in response.context)
+
+        settings = response.context['SETTINGS']
+        self.assertEqual(settings.SITE_ID, 1)
