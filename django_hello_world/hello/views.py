@@ -1,7 +1,9 @@
 from annoying.decorators import render_to
+from django.contrib.auth.decorators import login_required
 from django_hello_world.hello.models import UserInfo, Request
-from django.shortcuts import get_object_or_404
-
+from django.shortcuts import get_object_or_404, redirect
+from django import forms
+from django.forms.widgets import FileInput
 
 @render_to('hello/home.html')
 def home(request):
@@ -13,3 +15,21 @@ def home(request):
 def requests(request):
     request_list = Request.objects.all()[:10]
     return {'request_list': request_list}
+
+
+class EditDataForm(forms.ModelForm):
+    photo = forms.ImageField(widget=FileInput())
+    class Meta:
+        model = UserInfo
+
+
+@login_required
+@render_to('hello/edit.html')
+def edit_data(request):
+    user_info = get_object_or_404(UserInfo, pk=1)
+    form = EditDataForm(request.POST or None, request.FILES or None, instance=user_info)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('home')
+
+    return {'form': form}

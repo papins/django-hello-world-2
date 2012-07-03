@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}42 Coffee Cups Test Assignment{% endblock %}
+
+{% block content %}
+<h3>42 Coffee Cups Test Assignment</h3>
+
+<style type="text/css">
+label { font-weight: bold; }
+</style>
+<form enctype="multipart/form-data" method="post" action=".">
+{% csrf_token %}
+{{ form.non_field_errors }}
+<table border="0" cellpadding="0" cellspacing="0">
+    <tr valign='top'>
+        <td width="350" align='center'>
+			<div id='c1' style='text-align: right; width:300px;'>
+            <p>{{ form.name.label_tag }}: {{ form.name }}</p>{{ form.name.errors }}
+            <p>{{ form.last_name.label_tag }}: {{ form.last_name }}</p>{{ form.last_name.errors }}
+            <p>{{ form.date_of_birth.label_tag }}: {{ form.date_of_birth }}</p>{{ form.date_of_birth.errors }}
+            <p>{{ form.photo.label_tag }}: {{ form.photo }}
+            <p>{% if form.photo.value and not form.photo.errors %}<img width="300" alt="Photo preview" src="{{ MEDIA_URL }}{{ form.photo.value }}">{% endif %}</p>
+
+
+			</div>
+        </td>
+        <td width="360" align='center'>
+			<div id='c2' style='text-align: right; width:220px;'>
+				<p>{{ form.email.label_tag }}: {{ form.email }}</p>{{ form.email.errors }}
+				<p>{{ form.jabber.label_tag }}: {{ form.jabber }}</p>{{ form.jabber.errors }}
+				<p>{{ form.skype.label_tag }}: {{ form.skype }}</p>{{ form.skype.errors }}
+			</div>
+
+            <div id='c2' style='text-align: left; width:350px;'>
+            {{ form.other_contacts.label_tag }}:<br>
+            {{ form.other_contacts.errors }}
+                {{ form.other_contacts }}<br>
+            {{ form.bio.label_tag }}:<br>
+            {{ form.bio.label_tag.errors }}
+                {{ form.bio }}<br>
+            </div>
+
+        </td>
+    </tr>
+</table>
+<input type="submit" value="Save" title="Save" name="Save"> <a href='{% url home %}'>Cancel</a>
+</form>
+
+<hr>
+<a href='{% url requests %}'>requests</a>
+{% endblock content %}

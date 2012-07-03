@@ -10,12 +10,12 @@ label { font-weight: bold; }
 </style>
 <table border="0" cellpadding="0" cellspacing="0">
     <tr valign='top'>
-        <td width="300">
+        <td width="320">
             <p><label>Name:</label> {{ user_info.name }}</p>
             <p><label>Last Name:</label> {{ user_info.last_name }}</p>
             <p><label>Date of birth:</label> {{ user_info.date_of_birth }}</p>
-            <p><label>Bio:</label><br>
-            {{ user_info.bio|linebreaksbr }}</p>
+			<p><label>Photo:</label></p>
+			{% if user_info.photo %}<img width="300" alt="Photo preview" src="{{ user_info.photo.url }}">{% endif %}
         </td>
         <td width="300">
             <p><label>Contacts</label></p>
@@ -24,9 +24,14 @@ label { font-weight: bold; }
             <p><label>Skype:</label> {{ user_info.skype }}</p>
             <p><label>Other contacts:</label><br>
             {{ user_info.other_contacts|linebreaksbr }}</p>
+            <p><label>Bio:</label><br>
+            {{ user_info.bio|linebreaksbr }}</p>
+        </td>
+        <td width="100">
+		<a href='{% url edit %}'>Edit</a>
         </td>
     </tr>
 </table>
-
-<a href='/requests/'>requests</a>
+<hr>
+<a href='{% url requests %}'>requests</a>
 {% endblock content %}
