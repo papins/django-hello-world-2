@@ -14,3 +14,12 @@ class UserInfo(models.Model):
 
     def __unicode__(self):
         return "%s %s" % (self.name, self.last_name)
+
+
+class Request(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    path = models.CharField(max_length=250)
+    is_get = models.BooleanField()
+
+    def __unicode__(self):
+        return "%s %s" % (self.name, self.last_name)

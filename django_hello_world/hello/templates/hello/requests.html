@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}First 10 http requests{% endblock %}
+
+{% block content %}
+<h3>First 10 http requests</h3>
+
+<style type="text/css">
+th { text-align: left; }
+</style>
+
+<table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <th width="50">id</th>
+        <th width="200">date</th>
+        <th width="200">path</th>
+        <th width="50">method</th>
+    </tr>
+	{% for item in request_list %}
+    <tr valign='top'>
+        <td width="50">{{ item.id }}.</td>
+        <td width="200">{{ item.date }}</td>
+        <td width="200">{{ item.path }}</td>
+        <td width="50">{% if item.is_get %}GET{% else %}POST{% endif %}</td>
+    </tr>
+	{% endfor %}
+</table>
+
+{% endblock content %}
