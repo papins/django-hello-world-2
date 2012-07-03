@@ -5,11 +5,11 @@ from django.test.client import Client
 
 
 class HttpTest(TestCase):
-    def test_home(self):
-        fixtures = ['initial_data.json']
+    fixtures = ['initial_data.json']
 
+    def test_home(self):
         c = Client()
-        # response = c.get(reverse('home'))
+
         response = c.get('/')
         self.assertEqual(response.status_code, 200)
 
@@ -24,3 +24,19 @@ class HttpTest(TestCase):
         self.assertEqual(user_info.email, 'papins@gmail.com')
         self.assertEqual(user_info.jabber, 'papins@gmail.com')
         self.assertEqual(user_info.skype, 'sergey.papa')
+
+        self.assertContains(response, 'requests')
+
+    def test_requests(self):
+        c = Client()
+
+        response = c.get('/requests/')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, 'First 10 http requests')
+
+        self.assertTrue('request_list' in response.context)
+
+        request_list = response.context['request_list']
+        self.assertLessEqual(request_list.count(), 10)
+
