@@ -3,7 +3,6 @@ from django.test import TestCase
 from django.test.client import Client
 
 
-
 class HttpTest(TestCase):
     fixtures = ['initial_data.json']
 
@@ -39,4 +38,3 @@ class HttpTest(TestCase):
 
         request_list = response.context['request_list']
         self.assertLessEqual(request_list.count(), 10)
-
