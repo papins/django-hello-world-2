@@ -11,5 +11,5 @@ def home(request):
 
 @render_to('hello/requests.html')
 def requests(request):
-    request_list = Request.objects.all()[:10]
+    request_list = Request.objects.all().order_by('-pk')[:10]
     return {'request_list': request_list}
