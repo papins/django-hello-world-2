@@ -159,3 +159,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django_hello_world.hello.context_processors.settings',
 )
 
+SOUTH_TESTS_MIGRATE = False
