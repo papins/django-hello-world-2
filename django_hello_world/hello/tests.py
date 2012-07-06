@@ -3,7 +3,6 @@ from django.test import TestCase
 from django.test.client import Client
 
 
-
 class HttpTest(TestCase):
     fixtures = ['initial_data.json']
 
@@ -68,7 +67,6 @@ class HttpTest(TestCase):
 
         self.assertTrue('form' in response.context)
 
-
         # empty values
         response = c.post(reverse("edit"), {
             "name": "",
@@ -78,14 +76,19 @@ class HttpTest(TestCase):
             "jabbber": "",
             "skype": "",
             "bio": "",
-            "other_contacts": "",
-            })
+            "other_contacts": ""
+        })
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, 'form', 'name', [u'This field is required.'])
-        self.assertFormError(response, 'form', 'last_name', [u'This field is required.'])
-        self.assertFormError(response, 'form', 'date_of_birth', [u'This field is required.'])
-        self.assertFormError(response, 'form', 'email', [u'This field is required.'])
-        self.assertFormError(response, 'form', 'skype', [u'This field is required.'])
+        self.assertFormError(response, 'form', 'name',
+                             [u'This field is required.'])
+        self.assertFormError(response, 'form', 'last_name',
+                             [u'This field is required.'])
+        self.assertFormError(response, 'form', 'date_of_birth',
+                             [u'This field is required.'])
+        self.assertFormError(response, 'form', 'email',
+                             [u'This field is required.'])
+        self.assertFormError(response, 'form', 'skype',
+                             [u'This field is required.'])
         self.assertFormError(response, 'form', 'bio', [])
         self.assertFormError(response, 'form', 'other_contacts', [])
 
@@ -94,11 +97,14 @@ class HttpTest(TestCase):
             "date_of_birth": "foo",
             "email": "foo",
             "jabber": "foo",
-            })
+        })
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, 'form', 'date_of_birth', [u'Enter a valid date.'])
-        self.assertFormError(response, 'form', 'email', [u'Enter a valid e-mail address.'])
-        self.assertFormError(response, 'form', 'jabber', [u'Enter a valid e-mail address.'])
+        self.assertFormError(response, 'form', 'date_of_birth',
+                             [u'Enter a valid date.'])
+        self.assertFormError(response, 'form', 'email',
+                             [u'Enter a valid e-mail address.'])
+        self.assertFormError(response, 'form', 'jabber',
+                             [u'Enter a valid e-mail address.'])
 
         # valid values
         response = c.post(reverse("edit"), {
@@ -110,7 +116,7 @@ class HttpTest(TestCase):
             "skype": "papins@gmail.com",
             "bio": "some bio",
             "other_contacts": "",
-            })
+        })
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, 'form', 'name', [])
         self.assertFormError(response, 'form', 'last_name', [])
@@ -119,4 +125,3 @@ class HttpTest(TestCase):
         self.assertFormError(response, 'form', 'skype', [])
         self.assertFormError(response, 'form', 'bio', [])
         self.assertFormError(response, 'form', 'other_contacts', [])
-

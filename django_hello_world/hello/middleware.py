@@ -5,6 +5,7 @@ from django_hello_world.hello.models import Request
 
 class RequestsLoggerMiddleware(object):
     def process_request(self, request):
-        r = Request.objects.create(path = request.path, is_get = True if request.method == 'GET' else False)
+        is_get = True if request.method == 'GET' else False
+        r = Request.objects.create(path=request.path, is_get=is_get)
         r.save()
         return None

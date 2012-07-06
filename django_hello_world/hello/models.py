@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class UserInfo(models.Model):
     name = models.CharField(max_length=50)
@@ -12,6 +11,7 @@ class UserInfo(models.Model):
     skype = models.CharField(max_length=50)
     other_contacts = models.TextField(blank=True)
     photo = models.ImageField(upload_to='photo', blank=True)
+
     def __unicode__(self):
         return "%s %s" % (self.name, self.last_name)
 
