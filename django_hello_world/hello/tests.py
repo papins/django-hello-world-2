@@ -34,7 +34,7 @@ class HttpTest(TestCase):
         response = c.get(reverse('requests'))
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, 'First 10 http requests')
+        self.assertContains(response, 'Last 10 http requests')
 
         self.assertTrue('request_list' in response.context)
 
