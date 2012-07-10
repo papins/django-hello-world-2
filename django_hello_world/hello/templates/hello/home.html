@@ -2,36 +2,58 @@
 
 {% block title %}42 Coffee Cups Test Assignment{% endblock %}
 
-{% block content %}
-<h3>42 Coffee Cups Test Assignment</h3>
-
+{% block css %}
 <style type="text/css">
-label { font-weight: bold; }
+img {
+  margin-left: 10px;
+  padding:0px;
+}
+.col1 {
+  width: 300px;
+}
+.col2 {
+  width: 300px;
+}
+.col3 {
+}
 </style>
-<table border="0" cellpadding="0" cellspacing="0">
-    <tr valign='top'>
-        <td width="320">
-            <p><label>Name:</label> {{ user_info.name }}</p>
-            <p><label>Last Name:</label> {{ user_info.last_name }}</p>
-            <p><label>Date of birth:</label> {{ user_info.date_of_birth }}</p>
-			<p><label>Photo:</label></p>
-			{% if user_info.photo %}<img width="300" alt="Photo preview" src="{{ user_info.photo.url }}">{% endif %}
-        </td>
-        <td width="300">
-            <p><label>Contacts</label></p>
-            <p><label>Email:</label> {{ user_info.email }}</p>
-            <p><label>Jabber:</label> {{ user_info.jabber }}</p>
-            <p><label>Skype:</label> {{ user_info.skype }}</p>
-            <p><label>Other contacts:</label><br>
-            {{ user_info.other_contacts|linebreaksbr }}</p>
-            <p><label>Bio:</label><br>
-            {{ user_info.bio|linebreaksbr }}</p>
-        </td>
-        <td width="100">
-		<a href='{% url edit %}'>Edit</a>
-        </td>
-    </tr>
-</table>
-<hr>
-<a href='{% url requests %}'>requests</a>
+{% endblock %}
+
+
+{% block content %}
+<div class="layout">
+  <div class="header">
+    <h1>42 Coffee Cups Test Assignment</h1>
+  </div>
+
+  <div class="col1">
+    <p><label>Name:</label> {{ user_info.name }}</p>
+    <p><label>Last Name:</label> {{ user_info.last_name }}</p>
+    <p><label>Date of birth:</label> {{ user_info.date_of_birth }}</p>
+    <p><label>Photo:</label></p>
+    {% if user_info.photo %}<img width="280" alt="Photo preview" src="{{ user_info.photo.url }}">{% endif %}
+  </div>
+
+  <div class="col2">
+    <p><label>Contacts</label></p>
+    <p><label>Email:</label> {{ user_info.email }}</p>
+    <p><label>Jabber:</label> {{ user_info.jabber }}</p>
+    <p><label>Skype:</label> {{ user_info.skype }}</p>
+    <p><label>Other contacts:</label><br>
+    {{ user_info.other_contacts|linebreaksbr }}</p>
+    <p><label>Bio:</label><br>
+    {{ user_info.bio|linebreaksbr }}</p>
+  </div>
+
+  <div class="col3">
+    <a href='{% url edit %}'>Edit</a>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="footer">
+    <hr>
+    <a href='{% url requests %}'>requests</a>
+  </div>
+</div>
 {% endblock content %}
