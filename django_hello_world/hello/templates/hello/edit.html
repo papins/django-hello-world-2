@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}42 Coffee Cups Test Assignment{% endblock %}
+
+{% block css %}
+<style type="text/css">
+img {
+  margin-left: 10px;
+  padding:0px;
+}
+.col1 {
+  width: 310px;
+  border:0px solid red;
+}
+.col2 {
+  width: 300px;
+  padding-left:10px;
+  border:0px solid red;
+}
+.col3 {
+}
+.save {
+  padding: 20px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="layout">
+  <div class="header">
+    <h1>42 Coffee Cups Test Assignment</h1>
+  </div>
+
+<form enctype="multipart/form-data" method="post" action=".">
+{% csrf_token %}
+{{ form.non_field_errors }}
+
+  <div class="col1">
+			<div id='b1' style='text-align: right; width:310px;'>
+            <p>{{ form.name.label_tag }}: {{ form.name }}</p>{{ form.name.errors }}
+            <p>{{ form.last_name.label_tag }}: {{ form.last_name }}</p>{{ form.last_name.errors }}
+            <p>{{ form.date_of_birth.label_tag }}: {{ form.date_of_birth }}</p>{{ form.date_of_birth.errors }}
+            <p>{{ form.photo.label_tag }}: {{ form.photo }}
+            <p>{% if form.photo.value and not form.photo.errors %}<img width="280" alt="Photo preview" src="{{ MEDIA_URL }}{{ form.photo.value }}">{% endif %}</p>
+			</div>
+  </div>
+
+  <div class="col2">
+			<div id='b2' style='text-align: right; width:250px;'>
+				<p>{{ form.email.label_tag }}: {{ form.email }}</p>{{ form.email.errors }}
+				<p>{{ form.jabber.label_tag }}: {{ form.jabber }}</p>{{ form.jabber.errors }}
+				<p>{{ form.skype.label_tag }}: {{ form.skype }}</p>{{ form.skype.errors }}
+			</div>
+      <div id='b3' style='text-align: left; width:350px;'>
+      <p>{{ form.other_contacts.label_tag }}:</p>
+      {{ form.other_contacts.errors }}
+          {{ form.other_contacts }}<br>
+      <p>{{ form.bio.label_tag }}:</p>
+      {{ form.bio.label_tag.errors }}
+          {{ form.bio }}<br>
+      </div>
+  </div>
+
+  <div class="clear save">
+    <input type="submit" value="Save" title="Save" name="Save"> <a href='{% url home %}'>Cancel</a>
+  </div>
+
+
+</form>
+
+  <div class="footer">
+    <hr>
+    <a href='{% url requests %}'>requests</a>
+  </div>
+
+</div>
+{% endblock content %}
