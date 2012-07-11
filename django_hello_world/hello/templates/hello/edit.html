@@ -26,13 +26,71 @@ img {
 </style>
 {% endblock %}
 
+
+
+{% block script %}
+<script src="/static/js/jquery.form.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    var options = {
+        //beforeSubmit:  onRequest,  // pre-submit callback
+        success:       onResponse  // post-submit callback
+        //crossDomain:    false,
+        //dataType:      'json'
+
+    };
+
+    $('#form-edit').submit(function() {
+        $(this).ajaxSubmit(options);
+        return false;
+    });
+});
+
+// pre-submit callback
+function onRequest(formData, jqForm, options) {
+    return true;
+}
+
+// post-submit callback
+function onResponse(data, form) {
+//  alert(data);
+	var status = data.valid;
+
+	// remove prev. errors & ok message
+  $("ul.errorlist").remove();
+  $("#p-message-ok").remove();
+
+	if (!status) {
+		if(data.errors !== undefined) {
+			$.each(data.errors, function(key, val)  {
+				if (key == '__all__') {
+          $("div.col1").before('<ul class="errorlist"><li>' + val + '</li></ul>');
+        }
+				else {
+						$('#'+key, "#form-edit").after('<ul class="errorlist"><li>' + val + '</li></ul>');
+				}
+			});
+		}
+	}
+  else {
+      $("#button-submit").before('<p id="p-message-ok">Changes have been saved</p>');
+      $("#id_photo").val("");
+  }
+}
+
+</script>
+{% endblock %}
+
+
+
 {% block content %}
 <div class="layout">
   <div class="header">
     <h1>42 Coffee Cups Test Assignment</h1>
   </div>
 
-<form enctype="multipart/form-data" method="post" action=".">
+<form id="form-edit" enctype="multipart/form-data" method="post" action=".">
 {% csrf_token %}
 {{ form.non_field_errors }}
 
@@ -41,8 +99,8 @@ img {
             <p>{{ form.name.label_tag }}: {{ form.name }}</p>{{ form.name.errors }}
             <p>{{ form.last_name.label_tag }}: {{ form.last_name }}</p>{{ form.last_name.errors }}
             <p>{{ form.date_of_birth.label_tag }}: {{ form.date_of_birth }}</p>{{ form.date_of_birth.errors }}
-            <p>{{ form.photo.label_tag }}: {{ form.photo }}
-            <p>{% if form.photo.value and not form.photo.errors %}<img width="280" alt="Photo preview" src="{{ MEDIA_URL }}{{ form.photo.value }}">{% endif %}</p>
+            <p>{{ form.photo.label_tag }}: {{ form.photo }}</p>{{ form.photo.errors }}
+            <p>{% if form.photo.value %}<img width="280" alt="Photo preview" src="{{ MEDIA_URL }}{{ form.photo.value }}">{% endif %}</p>
 			</div>
   </div>
 
@@ -63,7 +121,7 @@ img {
   </div>
 
   <div class="clear save">
-    <input type="submit" value="Save" title="Save" name="Save"> <a href='{% url home %}'>Cancel</a>
+    <input id="button-submit" type="submit" value="Save" title="Save" name="Save"> <a href='{% url home %}'>Cancel</a>
   </div>
 
 
