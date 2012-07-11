@@ -3,7 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django_hello_world.hello.models import UserInfo, Request
 from django.shortcuts import get_object_or_404, redirect
 from django import forms
-from django.forms.widgets import FileInput
+from django.forms.widgets import FileInput, DateInput
+import settings
+from widgets import CalendarWidget
 
 
 @render_to('hello/home.html')
@@ -19,6 +21,8 @@ def requests(request):
 
 
 class EditDataForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=CalendarWidget(
+        params="'dateFormat':'yy-mm-dd'"))
     photo = forms.ImageField(widget=FileInput())
 
     class Meta:
