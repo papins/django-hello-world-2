@@ -32,15 +32,15 @@ class EditDataForm(forms.ModelForm):
 
 
 @login_required
-# @render_to('hello/edit.html')
 def edit_data(request):
     user_info = get_object_or_404(UserInfo, pk=1)
     form = EditDataForm(request.POST or None, request.FILES or None,
                         instance=user_info)
 
     if request.method == 'POST':
-        import time
-        time.sleep(3)
+        # pause for testing
+        # import time
+        # time.sleep(3)
         if request.is_ajax() or 'is_ajax' in request.POST:
             valid = form.is_valid()
             data = {
@@ -77,7 +77,6 @@ def edit_data(request):
             else:
                 pass
 
-    # return {'form': form}
     return direct_to_template(
         request,
         template="hello/edit.html",

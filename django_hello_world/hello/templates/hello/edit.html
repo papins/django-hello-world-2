@@ -28,7 +28,6 @@ img {
 
 {% block script %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
-
 <script type="text/javascript">
 jQuery.fn.toHtmlString = function () {
 	return $('<div><\/div>').html($(this).eq(0).clone()).html();
@@ -124,6 +123,7 @@ function onResponse(data, form) {
 }
 </script>
 {% endblock %}
+
 
 {% block content %}
 <div class="layout">
