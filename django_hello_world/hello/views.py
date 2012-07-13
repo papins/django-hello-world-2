@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django import forms
 from django.forms.widgets import FileInput, DateInput
 from django.http import HttpResponse
-import settings
 from widgets import CalendarWidget
 from lazy_encoder import LazyEncoder
 
