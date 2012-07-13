@@ -44,7 +44,7 @@ class HttpTest(TestCase):
     def test_context_processor(self):
         c = Client()
 
-        response = c.get('/')
+        response = c.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
 
         self.assertTrue('SETTINGS' in response.context)
