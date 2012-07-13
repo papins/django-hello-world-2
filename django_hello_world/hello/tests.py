@@ -49,8 +49,8 @@ class HttpTest(TestCase):
 
         self.assertTrue('SETTINGS' in response.context)
 
-        settings = response.context['SETTINGS']
-        self.assertEqual(settings.SITE_ID, 1)
+        context_settings = response.context['SETTINGS']
+        self.assertEqual(context_settings.SITE_ID, 1)
 
     def test_edit_form(self):
         c = Client()
