@@ -39,20 +39,9 @@ def edit_data(request):
                         instance=user_info)
 
     if request.method == 'POST':
-        # data = {
-            # 'valid': 1111,
-        # }
-        # data['sss'] = request.META['HTTP_X_REQUESTED_WITH']
-        # json_serializer = LazyEncoder()
-        # return HttpResponse(json_serializer.encode(data), mimetype='application/json')
-
-        if not request.is_ajax():
-            if form.is_valid():
-                form.save()
-                return redirect('home')
-            else:
-                pass
-        else:
+        import time
+        time.sleep(3)
+        if request.is_ajax() or 'is_ajax' in request.POST:
             valid = form.is_valid()
             data = {
                 'valid': valid,
@@ -75,10 +64,18 @@ def edit_data(request):
                         final_errors[html_id] = val
                 data['errors'] = final_errors
             else:
-                form.save()
+                item = form.save()
+                data['img_url'] = item.photo.url
 
             json_serializer = LazyEncoder()
-            return HttpResponse(json_serializer.encode(data), mimetype='application/json')
+            return HttpResponse(json_serializer.encode(data), mimetype='text/html')
+            # return HttpResponse("ok")
+        else:
+            if form.is_valid():
+                form.save()
+                return redirect('home')
+            else:
+                pass
 
     # return {'form': form}
     return direct_to_template(

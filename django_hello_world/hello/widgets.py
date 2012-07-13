@@ -23,5 +23,7 @@ class CalendarWidget(forms.DateInput):
     def render(self, name, value, attrs=None):
         rendered = super(CalendarWidget, self).render(name, value, attrs=attrs)
         return rendered + mark_safe(u'''<script type="text/javascript">
+            $(document).ready(function() {
             $('#id_%s').datepicker({changeYear: true, changeMonth: true, yearRange:"1900:%d", %s});
+            });
             </script>''' % (name, datetime.now().year, self.params,))
